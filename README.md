@@ -36,16 +36,16 @@ NANOMSG_IPC/
 
 ## 🔌 IPC Flow (Overview)
 ```text
- UI Process (Subscriber)
-         ▲
-         │
-  libipc_adapter.dll (nanomsg SUB socket)
-         ▲
-         │
- nanomsg IPC socket (PUB/SUB)
-         │
-         ▼
-Service Process (Publisher)
+         [ UI Process ]
+            ▲      │
+            │      ▼
+     NN_SUB socket  NN_REQ socket
+            ▲      │
+  libipc_adapter.dll (wraps both)
+            ▲      │
+            │      ▼
+     NN_PUB socket  NN_REP socket
+         [ Service Process ]
 
 ```
 - Service uses NN_PUB to broadcast status updates.

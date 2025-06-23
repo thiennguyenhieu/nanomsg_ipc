@@ -36,14 +36,18 @@ NANOMSG_IPC/
 
 ## 🔌 IPC Flow (Overview)
 ```text
-UI Process ──[calls adapter]──► libipc_adapter.dll ──► nanomsg client
-                                              │
-                                              ▼
-                                    nanomsg socket (PAIR)
-                                              │
-                                              ▼
-                                  Service process (nanomsg server)
+ UI Process (Subscriber)
+         ▲
+         │
+  libipc_adapter.dll (nanomsg SUB socket)
+         ▲
+         │
+ nanomsg IPC socket (PUB/SUB)
+         │
+         ▼
+Service Process (Publisher)
+
 ```
-- ipc_interface.hpp declares the abstract callback interface
-- ipc_client handles socket communication
-- ipc_adapter links the UI and the IPC backend
+- Service uses NN_PUB to broadcast status updates.
+- UI uses NN_SUB to subscribe and react to those updates.
+- The IPC adapter encapsulates all SUB socket logic and exposes a clean C++ interface.

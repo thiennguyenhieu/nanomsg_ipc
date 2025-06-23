@@ -5,7 +5,7 @@ This project demonstrates an inter-process communication (IPC) system in C++ usi
 ---
 
 ## 📦 Project Structure
-
+```text
 NANOMSG_IPC/
 ├── ipc_adapter/ # IPC shared library (.dll)
 │ ├── ipc_adapter.cpp # Adapter implementation
@@ -22,28 +22,20 @@ NANOMSG_IPC/
 │ └── CMakeLists.txt
 ├── CMakeLists.txt # Top-level build configuration
 └── README.md
-
+```
 ---
 
 ## 🔧 Requirements
 
 - **Windows 10/11**
-- [MinGW-w64](https://www.mingw-w64.org/) (`g++`, `mingw32-make`)
+- [MinGW-w64](https://www.mingw-w64.org/)
 - [CMake ≥ 3.10](https://cmake.org/)
-- `nanomsg` 1.2.1 (built as a shared `.dll`) – see build instructions below
+- `nanomsg` 1.2.1 (built as a shared `.dll`)
 
 ---
 
-## Run Example
-# Terminal 1
-./bin/service.exe
-
-# Terminal 2
-./bin/ui.exe
-
-The ui will send a request using ipc_adapter and receive responses from the service.
-
 ## 🔌 IPC Flow (Overview)
+```text
 UI Process ──[calls adapter]──► libipc_adapter.dll ──► nanomsg client
                                               │
                                               ▼
@@ -51,7 +43,7 @@ UI Process ──[calls adapter]──► libipc_adapter.dll ──► nanomsg c
                                               │
                                               ▼
                                   Service process (nanomsg server)
-
+```
 - ipc_interface.hpp declares the abstract callback interface
 - ipc_client handles socket communication
 - ipc_adapter links the UI and the IPC backend

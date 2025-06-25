@@ -11,9 +11,9 @@ void onError(const char* msg) {
 }
 
 int main() {
+    startMessageReceiver();
     registerApplianceStatusCallback(onStatus);
     registerSystemErrorCallback(onError);
-    std::thread(run).detach();
 
     UiApplianceStatus_t status;
     if (getApplianceStatus(&status) == RESULT_OK) {

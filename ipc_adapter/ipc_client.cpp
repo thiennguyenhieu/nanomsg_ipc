@@ -14,18 +14,22 @@ IpcClient& IpcClient::instance() {
 IpcClient::IpcClient() : running_(false), callback_(nullptr), errorCallback_(nullptr) {}
 IpcClient::~IpcClient() { running_ = false; }
 
-Result_t IpcClient::getStatus(UiApplianceStatus_t& status) {
+template<typename T>
+Result_t IpcClient::sendRequest(const std::string& command, T& outData) {
     int sock = nn_socket(AF_SP, NN_REQ);
-    nn_connect(sock, REQ_URL);
+    if (sock < 0 || nn_connect(sock, REQ_URL) < 0) {
+        return RESULT_FAIL;
+    }
 
-    const char* req = "getStatus";
-    nn_send(sock, req, strlen(req), 0);
+    if (nn_send(sock, command.c_str(), command.size(), 0) < 0) {
+        nn_close(sock);
+        return RESULT_FAIL;
+    }
 
     char* buf = nullptr;
     int bytes = nn_recv(sock, &buf, NN_MSG, 0);
-
-    if (bytes == sizeof(UiApplianceStatus_t)) {
-        memcpy(&status, buf, sizeof(UiApplianceStatus_t));
+    if (bytes == sizeof(T)) {
+        memcpy(&outData, buf, sizeof(T));
         nn_freemsg(buf);
         nn_close(sock);
         return RESULT_OK;

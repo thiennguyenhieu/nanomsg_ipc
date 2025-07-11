@@ -8,23 +8,27 @@ This project demonstrates an inter-process communication (IPC) system in **C++**
 
 ```text
 NANOMSG_IPC/
-├── ipc_adapter/            # IPC shared library (.so)
-│   ├── ipc_adapter.cpp     # Adapter implementation
-│   ├── ipc_client.cpp      # nanomsg client logic
+├── ipc_adapter/                   # IPC shared library (.so)
+│   ├── ipc_adapter.cpp            # Adapter implementation
+│   ├── ipc_client.cpp             # nanomsg client logic
 │   ├── ipc_client.hpp
-│   ├── ipc_common.hpp      # Shared constants/config/macros used in IPC
-│   ├── ipc_interface.hpp   # Abstract interfaces for callback
-│   ├── ipc_types.hpp       # Shared data structures and enums
+│   ├── ipc_common.hpp             # Shared constants/config/macros used in IPC
+│   ├── interfaces/                # Local copy of shared interface headers
+│   │   ├── ipc_interface.hpp      # Callback interface
+│   │   └── ipc_types.hpp          # Data structures/enums
 │   └── CMakeLists.txt
-├── service/                # Backend process
-│   ├── service_main.cpp    # Contains logic and nanomsg server
+├── service/                       # Backend process
+│   ├── service_main.cpp           # Contains logic and nanomsg server
 │   └── CMakeLists.txt
-├── ui/                     # Frontend process
-│   ├── main.cpp            # Calls into libipc_adapter.so
-│   ├── lib/                # Folder for .so libraries
+├── ui/                            # Frontend process
+│   ├── main.cpp                   # Calls into libipc_adapter.so
+│   ├── lib/                       # Folder for built .so libraries
+│   ├── interfaces/                # Local copy of shared interface headers
+│   │   ├── ipc_interface.hpp      # Callback interface for UI
+│   │   └── ipc_types.hpp          # Shared data structures/enums
 │   └── CMakeLists.txt
-├── nanomsg-1.2.1/          # Source for nanomsg (external dependency)
-├── CMakeLists.txt          # Top-level build configuration
+├── nanomsg-1.2.1/                 # Source for nanomsg (external dependency)
+├── CMakeLists.txt                 # Top-level build configuration
 └── README.md
 ```
 

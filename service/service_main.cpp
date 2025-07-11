@@ -1,11 +1,12 @@
-#include "ipc_common.hpp"
-#include <nanomsg/nn.h>
-#include <nanomsg/reqrep.h>
-#include <nanomsg/pubsub.h>
 #include <thread>
 #include <chrono>
 #include <cstring>
 #include <iostream>
+#include "ipc_common.hpp"
+#include "ipc_types.hpp"
+#include "nn.h"
+#include "reqrep.h"
+#include "pubsub.h"
 
 void handleRequests() {
     int sock = nn_socket(AF_SP, NN_REP);
@@ -47,6 +48,9 @@ void publishUpdates() {
 int main() {
     std::thread(handleRequests).detach();
     std::thread(publishUpdates).detach();
+
+    // prevent the program from exiting immediately for testing purpose
     std::this_thread::sleep_for(std::chrono::hours(1));
+
     return 0;
 }

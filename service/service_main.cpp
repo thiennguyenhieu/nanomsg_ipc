@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include "ipc_common.hpp"
-#include "ipc_types.hpp"
+#include "interfaces/ipc_types.hpp"
 #include "nn.h"
 #include "reqrep.h"
 #include "pubsub.h"

@@ -6,13 +6,16 @@ add_executable(ui
 )
 
 target_include_directories(ui PRIVATE
-    ${CMAKE_SOURCE_DIR}/ipc_adapter
+    ${PROJECT_SOURCE_DIR}/interfaces
+)
+
+target_link_directories(ui PRIVATE
+    ${PROJECT_SOURCE_DIR}/lib
 )
 
 find_package(Threads REQUIRED)
 
 target_link_libraries(ui PRIVATE
-    ${CMAKE_SOURCE_DIR}/ui/lib
     ipc_adapter
     Threads::Threads
 )

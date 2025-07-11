@@ -1,4 +1,4 @@
-#include "ipc_interface.hpp"
+#include "interfaces/ipc_interface.hpp"
 #include <iostream>
 #include <thread>
 

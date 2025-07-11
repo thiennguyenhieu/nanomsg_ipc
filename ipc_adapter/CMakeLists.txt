@@ -7,8 +7,8 @@ add_library(ipc_adapter SHARED
     ipc_adapter.cpp
     ipc_client.hpp
     ipc_common.hpp
-    ipc_interface.hpp
-    ipc_types.hpp
+    interfaces/ipc_interface.hpp
+    interfaces/ipc_types.hpp
 )
 
 # Expose headers to both this target and dependents

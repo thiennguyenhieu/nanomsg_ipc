@@ -6,7 +6,7 @@
 #include "nn.h"
 #include "reqrep.h"
 #include "ipc_common.hpp"
-#include "ipc_interface.hpp"
+#include "interfaces/ipc_interface.hpp"
 
 class IpcClient {
 public:
